@@ -6,7 +6,7 @@
 #include <TCanvas.h>
 //  the next line includes the external function used by the fits
 //  alternatively, one could load it manually in each ROOT session
-#include <fit1MeV_Gaussian.C>
+#include "fit1MeV_Gaussian.C"
 
 void FittingExample::Loop()
 {
@@ -55,7 +55,7 @@ void FittingExample::Loop()
 
 // the following line declares a "pave" which is ROOT-speak for a box
 // in which one writes text.
-   pt = new TPaveText(0.12,0.72,0.42,0.85, "NDC"); // NDC sets coords
+   auto pt = new TPaveText(0.12,0.72,0.42,0.85, "NDC"); // NDC sets coords
 
 
   TStyle *myDefaultStyle = new TStyle("myDefaultStyle","my local default style");
@@ -158,7 +158,7 @@ TH1 * xiDDgoodPromptPi = new TH1D("LambdaDD,pi mass","DD: after some cuts",40,13
    totalStr.Form("%4.0f\n",total);
    deltaTotal = myXiFit->GetParError(0);
    deltaTotalStr.Form("%4.0f\n",deltaTotal);
-   text = pt->AddText("signal  =  "+totalStr+"  #pm"+deltaTotalStr);
+   auto text = pt->AddText("signal  =  "+totalStr+"  #pm"+deltaTotalStr);
    sigma = myXiFit->GetParameter(2);
    sigmaStr.Form("%6.2f\n",sigma);
    deltaSigma = myXiFit->GetParError(2);
