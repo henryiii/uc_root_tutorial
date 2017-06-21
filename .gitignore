@@ -1,0 +1,8 @@
+*.so
+*.root
+*.d
+*.pcm
+*.png
+*.pdf
+__pycache__
+*.pyc
