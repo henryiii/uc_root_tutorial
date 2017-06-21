@@ -51,8 +51,10 @@ Bool_t FittingSelector::Process(Long64_t entry) {
     // Always need something link this
     GetEntry(entry);
 
+    double Xi_mass = *Xi_MM;
+
     bool GoodLambdaLL = (
-          (*Xi_MM > 1302. && *Xi_MM < 1342.)
+          (Xi_mass > 1302. && Xi_mass < 1342.)
        && (*DecayPr_TRACK_Type == TRACK_LONG)
        && (*DecayPr_TRACK_GhostProb < 0.25)
        && (*DecayPi_TRACK_GhostProb < 0.25)
@@ -62,7 +64,7 @@ Bool_t FittingSelector::Process(Long64_t entry) {
     ); 
 
     bool GoodLambdaDD = (
-           (*Xi_MM > 1302. && *Xi_MM < 1342.)
+           (Xi_mass > 1302. && Xi_mass < 1342.)
         && (*DecayPr_TRACK_Type == TRACK_DOWN)
         && (*DecayPr_ProbNNp > 0.05)
         && (*Lambda_ENDVERTEX_Z < 2275.)
@@ -71,10 +73,10 @@ Bool_t FittingSelector::Process(Long64_t entry) {
 
 
     if (*DecayPr_TRACK_Type == TRACK_LONG)
-        strippingLevelXiLLMassHist->Fill(*Xi_MM);
+        strippingLevelXiLLMassHist->Fill(Xi_mass);
     
     if (*DecayPr_TRACK_Type == TRACK_DOWN)
-        strippingLevelXiDDMassHist->Fill(*Xi_MM);
+        strippingLevelXiDDMassHist->Fill(Xi_mass);
 
     double deltaZ = *Lambda_ENDVERTEX_Z - *Xi_ENDVERTEX_Z;
     // Unused: double pvDeltaZ = *Xi_ENDVERTEX_Z - *Xi_OWNPV_Z;
@@ -86,10 +88,10 @@ Bool_t FittingSelector::Process(Long64_t entry) {
     );
 
     if (GoodLambdaLL && PromptLongPiLowGP)
-        xiLLgoodPromptPi->Fill(*Xi_MM);
+        xiLLgoodPromptPi->Fill(Xi_mass);
 
     if (GoodLambdaDD && PromptLongPiLowGP)
-        xiDDgoodPromptPi->Fill(*Xi_MM);
+        xiDDgoodPromptPi->Fill(Xi_mass);
 
     return kTRUE;
 }
